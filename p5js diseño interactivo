@@ -1,0 +1,91 @@
+ https://editor.p5js.org/maite0307/sketches/2EY3J2muJ
+ 
+//este trabajo esta inspirado en la lógica y visualidad del arte cinético//
+
+//se establece la cantidad de las filas (verticales), de las columnas (horizontales), el tamaño y distancia de los cuadrados entre filas y columnas (cuadrado)//
+let filas = 30;
+let columnas = 30;
+let cuadrado = 30;
+let colorMode = 1;
+
+function setup() {
+  createCanvas(700, 700);
+
+  //establece la ubicación de los cuadrados al centro del lienzo//
+  rectMode(CENTER);
+  noStroke();
+}
+
+function draw() {
+  background(20);
+
+  //el mouse controla el efecto de expansión del centro del lienzo//
+  let efecto = map(mouseX, 0, width, 0.5, 2);
+
+  //recorre las filas//
+  for (let fila = 0; fila < filas; fila++) {
+    
+  //recorre las columnas//
+    for (let columna = 0; columna < columnas; columna++) {
+      
+//"let x" define la cantidad de cuadrados multiplicados en la cantidad de columnas, asi mismo "let y" define la cantidad de cuadrados multiplicados en la cantidad de filas, mientras que el 10 es el margen que hay en las esquinas para que el diseño no este pegado desde la punta//
+      let x = columna * cuadrado + 10;
+      let y = fila * cuadrado + 10;
+
+  //mide la distancia del cuadrado con el centro//
+      let d = dist(x, y, width / 2, height / 2);
+      let escala = map(d, 0, 350, 1.8 * efecto, 0.6);
+
+      //movimiento cinético//
+      let movimiento = sin(frameCount * 0.03 + d * 0.04) * 0.15; 
+      let finalSize = cuadrado * (escala + movimiento);
+
+      //cambio de color//
+      if (colorMode == 1) {
+        fill(253, 255, 0);
+      } else if (colorMode == 2) {
+        fill(0, 249, 255);
+      } else {
+        fill(253, 0, 255);
+      }
+
+      dibujarModulo(x, y, finalSize);
+    }
+  }
+
+  //texto informativo//
+  fill(255);
+  textSize(14);
+  text("Mueve el mouse para cambiar el efecto. Presiona 1, 2 o 3 para cambiar colores.", 20, 30);
+}
+
+//FUNCIÓN PROPIA//
+function dibujarModulo(x, y, finalSize) {
+  //cuadrado exterior//
+  rect(x, y, finalSize, finalSize);
+
+  //cuadrado interior//
+  fill(255, 105, 180);
+  rect(x, y, finalSize * 0.65, finalSize * 0.65);
+
+  //círculo interior//
+  fill(255);
+  ellipse(x, y, finalSize * 0.4, finalSize * 0.4);
+}
+
+//interacción con teclado//
+function keyPressed() {
+  if (key == "1") {
+    colorMode = 1;
+  }
+
+  if (key == "2") {
+    colorMode = 2;
+  }
+
+  if (key == "3") {
+    colorMode = 3;
+  }
+}
+
+
