@@ -35,4 +35,6 @@ ilusión de profundidad y/o volumen
 **Referente artístico**
 Victor Vasarely 
 
+**Diagrama de flujo**
+<img width="1920" height="1080" alt="Diagrama de flujo" src="https://github.com/user-attachments/assets/c170b1ee-dcb0-4640-b5e1-b5fa1281bb69" />
 
